@@ -5,10 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
     <link href="./styles.css" rel="stylesheet" />
   </head>
   <body>
     <canvas id="Canvas" width="1000" height="600"> </canvas>
+    <div class="optionsWrapper">
+      <p>line options</p>
+      <div class="buttonsWrapper">
+        <div id="offButton" class="button">off</div>
+        <div id="connectedButton" class="button selected">connected</div>
+        <div id="hangingButton" class="button">hanging</div>
+      </div>
+    </div>
   </body>
   <script src="./action.js"></script>
 </html>

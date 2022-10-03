@@ -1,204 +1,269 @@
 const c = document.getElementById("Canvas");
 const ctx = c.getContext("2d");
+ctx.canvas.width = screen.width;
+ctx.canvas.height = screen.height * 0.7;
 const speed = 0.05;
 const FPS = 30;
 let pause = false;
+let lineStyle = 1;
+let button = document.getElementsByClassName("button");
 
 let interval = setInterval(() => {
   ctx.clearRect(0, 0, c.width, c.height);
-  drawCircles();
   drawLines();
+  drawCircles();
 }, 1000 / FPS);
 
-document.addEventListener("keyup", (e) => {
-  if (e.code === "Space") {
-    if (pause) {
-      interval = setInterval(() => {
-        ctx.clearRect(0, 0, c.width, c.height);
-        drawCircles();
+document.getElementById("Canvas").addEventListener("click", () => {
+  if (pause) {
+    interval = setInterval(() => {
+      ctx.clearRect(0, 0, c.width, c.height);
+      drawCircles();
+      if (lineStyle == 1) {
         drawLines();
-      }, 1000 / FPS);
-      pause = false;
-    } else {
-      clearInterval(interval);
-      pause = true;
-    }
+      } else if (lineStyle == 2) {
+        drawHangingLines();
+      }
+    }, 1000 / FPS);
+    pause = false;
+  } else {
+    clearInterval(interval);
+    pause = true;
   }
+});
+
+document.getElementById("offButton").addEventListener("click", () => {
+  for (let i = 0; i < button.length; i++) {
+    button[i].classList.remove("selected");
+  }
+  button[0].classList.add("selected");
+  lineStyle = 0;
+
+  clearInterval(interval);
+  interval = setInterval(() => {
+    ctx.clearRect(0, 0, c.width, c.height);
+    drawCircles();
+    if (lineStyle == 1) {
+      drawLines();
+    } else if (lineStyle == 2) {
+      drawHangingLines();
+    }
+  }, 1000 / FPS);
+});
+
+document.getElementById("connectedButton").addEventListener("click", () => {
+  for (let i = 0; i < button.length; i++) {
+    button[i].classList.remove("selected");
+  }
+  button[1].classList.add("selected");
+  lineStyle = 1;
+
+  clearInterval(interval);
+  interval = setInterval(() => {
+    ctx.clearRect(0, 0, c.width, c.height);
+    if (lineStyle == 1) {
+      drawLines();
+    } else if (lineStyle == 2) {
+      drawHangingLines();
+    }
+
+    drawCircles();
+  }, 1000 / FPS);
+});
+
+document.getElementById("hangingButton").addEventListener("click", () => {
+  for (let i = 0; i < button.length; i++) {
+    button[i].classList.remove("selected");
+  }
+  button[2].classList.add("selected");
+  lineStyle = 2;
+
+  clearInterval(interval);
+  interval = setInterval(() => {
+    ctx.clearRect(0, 0, c.width, c.height);
+    if (lineStyle == 1) {
+      drawLines();
+    } else if (lineStyle == 2) {
+      drawHangingLines();
+    }
+
+    drawCircles();
+  }, 1000 / FPS);
 });
 
 const circlesArray = [
   {
     color: "#00008b",
-    length: 175,
+    length: screen.height * 0.1,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0175,
   },
   {
     color: "#0000d8",
-    length: 200,
+    length: screen.height * 0.13,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.018,
   },
   {
     color: "#4040ff",
-    length: 225,
+    length: screen.height * 0.16,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0185,
   },
   {
     color: "#14716c",
-    length: 250,
+    length: screen.height * 0.19,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.019,
   },
   {
     color: "#20b2aa",
-    length: 275,
+    length: screen.height * 0.22,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0195,
   },
   {
     color: "#42ddd4",
-    length: 300,
+    length: screen.height * 0.25,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.02,
   },
   {
     color: "#20b261",
-    length: 325,
+    length: screen.height * 0.28,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0205,
   },
   {
     color: "#00b300",
-    length: 350,
+    length: screen.height * 0.31,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.021,
   },
   {
     color: "#9acd32",
-    length: 375,
+    length: screen.height * 0.34,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0215,
   },
   {
     color: "#ddd542",
-    length: 400,
+    length: screen.height * 0.37,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.022,
   },
   {
     color: "#ffff00",
-    length: 425,
+    length: screen.height * 0.4,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0225,
   },
   {
     color: "#ffae42",
-    length: 450,
+    length: screen.height * 0.43,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.023,
   },
   {
     color: "#f58c00",
-    length: 475,
+    length: screen.height * 0.46,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0235,
   },
   {
     color: "#ff4500",
-    length: 500,
+    length: screen.height * 0.49,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.024,
   },
   {
     color: "#b33000",
-    length: 525,
+    length: screen.height * 0.52,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.0245,
   },
   {
     color: "#671b00",
-    length: 550,
+    length: screen.height * 0.55,
     posX: 500,
     posY: 500,
     direction: 1,
-    angle: Math.PI / 4,
+    angle: Math.PI / 15,
     angleV: 0,
     angleA: 0,
     gravity: 0.025,
@@ -216,7 +281,8 @@ function drawCircles() {
     circlesArray[i].angleV += circlesArray[i].angleA;
     circlesArray[i].angle += circlesArray[i].angleV;
     circlesArray[i].posX =
-      circlesArray[i].length * Math.sin(circlesArray[i].angle) + 500;
+      circlesArray[i].length * Math.sin(circlesArray[i].angle) +
+      window.innerWidth / 2;
     circlesArray[i].posY =
       circlesArray[i].length * Math.cos(circlesArray[i].angle);
     circlesArray[i].angle += speed;
@@ -228,6 +294,16 @@ function drawLines() {
     ctx.beginPath();
     ctx.moveTo(circlesArray[i].posX, circlesArray[i].posY);
     ctx.lineTo(circlesArray[i + 1].posX, circlesArray[i + 1].posY);
+    ctx.stroke();
+  }
+}
+
+function drawHangingLines() {
+  for (let i in circlesArray) {
+    ctx.strokeStyle = "lightgrey";
+    ctx.beginPath();
+    ctx.moveTo(circlesArray[i].posX, circlesArray[i].posY);
+    ctx.lineTo(window.innerWidth / 2, 0);
     ctx.stroke();
   }
 }
