@@ -18,12 +18,13 @@ document.getElementById("Canvas").addEventListener("click", () => {
   if (pause) {
     interval = setInterval(() => {
       ctx.clearRect(0, 0, c.width, c.height);
-      drawCircles();
       if (lineStyle == 1) {
         drawLines();
       } else if (lineStyle == 2) {
         drawHangingLines();
       }
+
+      drawCircles();
     }, 1000 / FPS);
     pause = false;
   } else {
@@ -33,6 +34,7 @@ document.getElementById("Canvas").addEventListener("click", () => {
 });
 
 document.getElementById("offButton").addEventListener("click", () => {
+  pause = false;
   for (let i = 0; i < button.length; i++) {
     button[i].classList.remove("selected");
   }
@@ -43,15 +45,11 @@ document.getElementById("offButton").addEventListener("click", () => {
   interval = setInterval(() => {
     ctx.clearRect(0, 0, c.width, c.height);
     drawCircles();
-    if (lineStyle == 1) {
-      drawLines();
-    } else if (lineStyle == 2) {
-      drawHangingLines();
-    }
   }, 1000 / FPS);
 });
 
 document.getElementById("connectedButton").addEventListener("click", () => {
+  pause = false;
   for (let i = 0; i < button.length; i++) {
     button[i].classList.remove("selected");
   }
@@ -72,6 +70,7 @@ document.getElementById("connectedButton").addEventListener("click", () => {
 });
 
 document.getElementById("hangingButton").addEventListener("click", () => {
+  pause = false;
   for (let i = 0; i < button.length; i++) {
     button[i].classList.remove("selected");
   }
